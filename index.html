@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#2563eb">
+  <title>WorkSalary</title>
+  <link rel="stylesheet" href="./style.css?v=5">
+<script src="./app.js?v=5" defer></script>
+</head>
+
+<body>
+  <header>
+    <h1>WorkSalary</h1>
+    <p>Your work and earnings, all in one place.</p>
+  </header>
+
+ <nav class="app-nav" aria-label="Main navigation">
+  <button type="button" data-screen="companies-screen">
+    Companies
+  </button>
+
+  <button type="button" data-screen="work-screen">
+    Add Work
+  </button>
+
+  <button type="button" data-screen="salary-screen">
+    Overview
+  </button>
+
+  <button type="button" data-screen="entries-screen">
+    Work Entries
+  </button>
+
+  <button type="button" data-screen="backup-screen">
+    Backup
+  </button>
+</nav>
+
+  <main>
+    <p id="message" role="status" aria-live="polite"></p>
+
+    <section id="companies-screen">
+  <h2>Your Companies</h2>
+
+      <form id="company-form">
+        <label for="company-name">Company Name</label>
+        <input
+          id="company-name"
+          type="text"
+          placeholder="e.g. Comworks"
+          maxlength="80"
+          required
+        >
+        <button type="submit">Add Company</button>
+      </form>
+
+      <ul id="company-list"></ul>
+    </section>
+
+    <section id="work-screen">
+  <h2 id="entry-heading">Add Work Entry</h2>
+
+      <form id="entry-form">
+        <input id="entry-id" type="hidden">
+
+        <label for="entry-company">Company</label>
+        <select id="entry-company" required>
+          <option value="">Select a company</option>
+        </select>
+
+        <label for="entry-date">Date</label>
+        <input id="entry-date" type="date" required>
+
+        <label for="entry-shift">Shift</label>
+        <select id="entry-shift" required>
+          <option value="day">Day</option>
+          <option value="night">Night</option>
+        </select>
+
+        <label for="entry-amount">Earnings for This Shift (¥)</label>
+        <input
+          id="entry-amount"
+          type="number"
+          min="0"
+          step="1"
+          placeholder="e.g. 10000"
+          required
+        >
+
+        <label for="entry-note">Notes (Optional)</label>
+        <textarea
+          id="entry-note"
+          rows="3"
+          maxlength="500"
+          placeholder="Work location or other details"
+        ></textarea>
+
+        <button id="save-entry" type="submit">Save Entry</button>
+        <button id="cancel-edit" type="button" hidden>
+          Cancel Editing
+        </button>
+      </form>
+    </section>
+
+    <section id="salary-screen">
+  <h2>Monthly Earnings</h2>
+
+      <label for="filter-month">Month</label>
+      <input id="filter-month" type="month" required>
+
+      <label for="filter-company">Company</label>
+      <select id="filter-company">
+        <option value="all">All Companies</option>
+      </select>
+
+      <div class="summary">
+        <article>
+          <h3>Day Earnings</h3>
+          <p id="day-total">¥0</p>
+        </article>
+
+        <article>
+          <h3>Night Earnings</h3>
+          <p id="night-total">¥0</p>
+        </article>
+
+        <article>
+          <h3>Total Earnings</h3>
+          <p id="grand-total">¥0</p>
+        </article>
+      </div>
+
+      <p>
+        Totals are based on the amounts you enter.
+        Taxes and other deductions are not calculated.
+      </p>
+
+      <h3>Earnings by Company</h3>
+      <div id="company-totals"></div>
+    </section>
+
+   <section id="entries-screen">
+  <h2>Work Entries</h2>
+      <p id="empty-state">No entries for the selected month.</p>
+      <div id="entry-list"></div>
+    </section>
+
+  <section id="backup-screen">
+  <h2>Data Backup</h2>
+      <p>
+        Your data is stored only in this browser.
+        Download a backup before clearing browser data
+        or switching devices.
+      </p>
+
+      <button id="export-backup" type="button">
+        Download Backup
+      </button>
+
+      <label for="import-backup">Restore a Backup</label>
+      <input
+          id="import-backup"
+          type="file"
+          accept=".json,application/json"
+      >
+    </section>
+  </main>
+
+  <footer>
+    <p>WorkSalary · Japan · JPY (¥)</p>
+  </footer>
+
+<dialog id="confirm-dialog" class="confirm-dialog"
+        aria-labelledby="confirm-title"
+        aria-describedby="confirm-description">
+  <div class="confirm-icon" aria-hidden="true">!</div>
+
+  <h2 id="confirm-title">Delete this item?</h2>
+  <p id="confirm-description"></p>
+
+  <div class="confirm-actions">
+    <button id="confirm-cancel" type="button" class="secondary">
+      Cancel
+    </button>
+    <button id="confirm-accept" type="button" class="danger">
+      Delete
+    </button>
+  </div>
+</dialog>
+
+</body>
+</html>
